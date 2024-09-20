@@ -54,8 +54,13 @@ def checkout(skus) -> int:
     for offer_items, offer_info in offers.items():
         try:
             #deepcopy is used here to not affect the global variable item counts
-            item_counts = remove_offer_from_item_counts(copy.deepcopy(item_counts), offer_items)
-            total_price += offer_info['price']
+            # set a finite but high limit on applications of an offer so as to use offers multiple times
+            offer_applied_times = 0
+            max_offers_applied = 100
+            while offer_applied_times <= max_offers_applied:
+                item_counts = remove_offer_from_item_counts(copy.deepcopy(item_counts), offer_items)
+                total_price += offer_info['price']
+                offer_applied_times +=1
         except ValueError as e:
             continue
     
@@ -74,3 +79,4 @@ def remove_offer_from_item_counts(count: dict, offer: str) -> dict:
             else:
                 count[item] -= 1
     return count
+
