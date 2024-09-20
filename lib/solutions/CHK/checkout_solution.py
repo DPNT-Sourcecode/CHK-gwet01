@@ -81,5 +81,3 @@ def remove_offer_from_item_counts(count: dict, offer: str) -> dict:
             else:
                 count[item] -= 1
     return count
-
-
