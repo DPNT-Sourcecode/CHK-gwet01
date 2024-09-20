@@ -19,7 +19,23 @@ def checkout(skus) -> int:
         'D': {'price': 15, 'offer': None},
     }
     total_price = 0
+    item_counts = {}
 
+    #Iter items in basket
+    for item in skus:
+        if item not in prices:
+            return -1
+        # Increment count of the item
+        item_counts[item] = item_counts.get(item, 0) + 1
 
+    # For each entry in item counts if there's an offer, divide by the offer quantity
+    for item, count in item_counts:
+        offer = prices[item]['offer']
+        if offer:
+            num_offers, remainder = divmod(count, offer[0])
+            total_price += num_offers * offer[1]
+            total_price += remainder * prices[item]['price']
+        else:
+            total_price += count * prices[item]['price']
     return total_price
 
