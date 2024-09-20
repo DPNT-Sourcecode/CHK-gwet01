@@ -1,4 +1,4 @@
-
+import copy
 
 # Our price table and offers: 
 # +------+-------+------------------------+
@@ -53,7 +53,7 @@ def checkout(skus) -> int:
     offers = dict(sorted(offers.items(), key=lambda item: item[1]['saving'], reverse=True))
     for offer_items, offer_info in offers.items():
         try:
-            item_counts = remove_offer_from_item_counts(item_counts, offer_items)
+            item_counts = remove_offer_from_item_counts(copy.deepcopy(item_counts), offer_items)
             total_price += offer_info['price']
         except ValueError as e:
             continue
