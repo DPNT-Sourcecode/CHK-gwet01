@@ -10,14 +10,20 @@ def test_single_item():
     assert checkout("B") == 30
     assert checkout("C") == 20
     assert checkout("D") == 15
+    assert checkout("E") == 40
+    assert checkout("F") == 10
 
 def test_special_offer_A():
     assert checkout("AAA") == 130
     assert checkout("AAAA") == 180
+    assert checkout("AAAAA") == 200
 
 def test_special_offer_B():
     assert checkout("BB") == 45
     assert checkout("BBB") == 75
+
+def test_special_offer_F():
+    assert checkout('FFF') == 20
 
 def test_invalid_item():
     assert checkout("Z") == -1
