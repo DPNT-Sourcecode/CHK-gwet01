@@ -23,8 +23,8 @@ def test_invalid_item():
     assert checkout("Z") == -1
 
 def test_multiple_items():
-    assert checkout("ABAC") == 120
-    assert checkout("AABBCCDD") == 195
+    assert checkout("ABAC") == 150
+    assert checkout("AABBCCDD") == 215
 
 def test_offer_triggers_more_than_once():
     assert checkout("AAAAAA") == 260

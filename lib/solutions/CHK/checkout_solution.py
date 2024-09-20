@@ -29,7 +29,7 @@ def checkout(skus) -> int:
         item_counts[item] = item_counts.get(item, 0) + 1
 
     # For each entry in item counts if there's an offer, divide by the offer quantity
-    for item, count in item_counts:
+    for item, count in item_counts.items():
         offer = prices[item]['offer']
         if offer:
             num_offers, remainder = divmod(count, offer[0])
@@ -38,4 +38,3 @@ def checkout(skus) -> int:
         else:
             total_price += count * prices[item]['price']
     return total_price
-
