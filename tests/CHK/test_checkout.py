@@ -38,3 +38,6 @@ def test_offer_triggers_more_than_once():
 def test_picks_best_offer():
     assert checkout("AAAAAA") == 250
     assert checkout("EEBB") == 110
+
+def test_combination_offer():
+    assert checkout("STX") == 45

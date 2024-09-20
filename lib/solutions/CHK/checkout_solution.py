@@ -1,17 +1,5 @@
 import copy
-
-# Our price table and offers: 
-# +------+-------+------------------------+
-# | Item | Price | Special offers         |
-# +------+-------+------------------------+
-# | A    | 50    | 3A for 130, 5A for 200 |
-# | B    | 30    | 2B for 45              |
-# | C    | 20    |                        |
-# | D    | 15    |                        |
-# | E    | 40    | 2E get one B free      |
-# +------+-------+------------------------+
-# noinspection PyUnusedLocal
-# skus = unicode string
+import itertools
 def checkout(skus) -> int:
     """
     Calculates the total price of a given list of items
@@ -34,7 +22,7 @@ def checkout(skus) -> int:
         'H': 10,
         'I': 35,
         'J': 60,
-        'K': 80,
+        'K': 70,
         'L': 90,
         'M': 15,
         'N': 40,
@@ -42,14 +30,14 @@ def checkout(skus) -> int:
         'P': 50,
         'Q': 30,
         'R': 50,
-        'S': 30,
+        'S': 20,
         'T': 20,
         'U': 40,
         'V': 50,
         'W': 20,
-        'X': 90,
-        'Y': 10,
-        'Z': 50,
+        'X': 17,
+        'Y': 20,
+        'Z': 21,
     }
     # store offers as a separate dict, could in future calculate saving if subject to change
     offers = {
@@ -69,6 +57,15 @@ def checkout(skus) -> int:
         'VV': {'price': 90, 'saving': 10},
         'VVV': {'price': 130, 'saving': 20},
     }
+    #generate all versions of the combinatorial offer
+    combinatorial_offers_dict = generate_combinatorial_offers_dict(
+        sample_size = 3,
+        items = ['S','T','X','Y','Z'],
+        price = 45,
+        prices=prices
+    )
+
+    offers = offers.append(combinatorial_offers_dict)
     total_price = 0
     item_counts = {}
 
@@ -111,3 +108,15 @@ def remove_offer_from_item_counts(count: dict, offer: str) -> dict:
             else:
                 count[item] -= 1
     return count
+
+def generate_combinatorial_offers_dict(sample_size, items, price, prices):
+    combinatorial_offers_dict = {}
+    for combination in itertools.combinations_with_replacement(items, sample_size): 
+        combination_cost = 0
+        for item in combination:
+            combination_cost += prices[item]
+        saving = combination_cost - price
+        offer_key = "".join(combination)
+        combinatorial_offers_dict.append(
+            {offer_key, {'price': price, 'saving': saving}}
+        )
