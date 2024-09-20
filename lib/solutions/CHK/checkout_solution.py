@@ -1,5 +1,15 @@
 
 
+# Our price table and offers: 
+# +------+-------+------------------------+
+# | Item | Price | Special offers         |
+# +------+-------+------------------------+
+# | A    | 50    | 3A for 130, 5A for 200 |
+# | B    | 30    | 2B for 45              |
+# | C    | 20    |                        |
+# | D    | 15    |                        |
+# | E    | 40    | 2E get one B free      |
+# +------+-------+------------------------+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus) -> int:
@@ -13,10 +23,18 @@ def checkout(skus) -> int:
 
     #dict store of prices
     prices = {
-        'A': {'price': 50, 'offer': (3, 130)},
-        'B': {'price': 30, 'offer': (2, 45)},
-        'C': {'price': 20, 'offer': None},
-        'D': {'price': 15, 'offer': None},
+        'A': 50,
+        'B': 30,
+        'C': 20,
+        'D': 15,
+        'E': 40,
+    }
+    # store offers as a separate dict, could in future calculate saving if subject to change
+    offers = {
+        'AAA': {'price':130, 'saving':20},
+        'AAAAA': {'price':200, 'saving':50},
+        'BB': {'price':45, 'saving':15},
+        'EEB': {'price':80, 'saving':30},
     }
     total_price = 0
     item_counts = {}
@@ -28,13 +46,29 @@ def checkout(skus) -> int:
         # Increment count of the item
         item_counts[item] = item_counts.get(item, 0) + 1
 
-    # For each entry in item counts if there's an offer, divide by the offer quantity
-    for item, count in item_counts.items():
-        offer = prices[item]['offer']
-        if offer:
-            num_offers, remainder = divmod(count, offer[0])
-            total_price += num_offers * offer[1]
-            total_price += remainder * prices[item]['price']
-        else:
-            total_price += count * prices[item]['price']
+    # For each entry in offers, starting with the best saving,
+    # attempt to remove the items from the cart and
+    # add the offer value to the total
+    #sort offers by value
+    offers = dict(sorted(offers.items(), key=lambda item: item[1]['saving'], reverse=True))
+    for offer_items, offer_info in offers.items():
+        try:
+            item_counts = remove_offer_from_item_counts(item_counts, offer_items)
+            total_price += offer_info['price']
+        except ValueError as e:
+            continue
+    
+    for item, price in prices.items():
+        total_price += item_counts[item] * price
+
     return total_price
+
+def remove_offer_from_item_counts(item_counts: dict, offer: str) -> dict:
+    if item_counts == {}:
+        return item_counts
+    for item in offer:
+        if item_counts[item] == 0:
+            return ValueError('item for offer not in cart')
+        else:
+            item_counts[item] -= 1
+    return item_counts
