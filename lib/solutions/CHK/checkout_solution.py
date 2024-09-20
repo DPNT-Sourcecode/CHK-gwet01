@@ -20,7 +20,8 @@ def checkout(skus) -> int:
     Returns:
         total_price (int): The total price ofall items, or -1 if the input is invalid.
     """
-
+    if skus == "":
+        return 0
     #dict store of prices
     prices = {
         'A': 50,
@@ -45,7 +46,6 @@ def checkout(skus) -> int:
             return -1
         # Increment count of the item
         item_counts[item] = item_counts.get(item, 0) + 1
-
     # For each entry in offers, starting with the best saving,
     # attempt to remove the items from the cart and
     # add the offer value to the total
@@ -68,7 +68,7 @@ def remove_offer_from_item_counts(item_counts: dict, offer: str) -> dict:
         return item_counts
     for item in offer:
         if item_counts[item] == 0:
-            return ValueError('item for offer not in cart')
+            raise ValueError('item for offer not in cart')
         else:
             item_counts[item] -= 1
     return item_counts
