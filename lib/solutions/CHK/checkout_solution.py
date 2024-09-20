@@ -30,6 +30,26 @@ def checkout(skus) -> int:
         'D': 15,
         'E': 40,
         'F': 10,
+        'G': 20,
+        'H': 10,
+        'I': 35,
+        'J': 60,
+        'K': 80,
+        'L': 90,
+        'M': 15,
+        'N': 40,
+        'O': 10,
+        'P': 50,
+        'Q': 30,
+        'R': 50,
+        'S': 30,
+        'T': 20,
+        'U': 40,
+        'V': 50,
+        'W': 20,
+        'X': 90,
+        'Y': 10,
+        'Z': 50,
     }
     # store offers as a separate dict, could in future calculate saving if subject to change
     offers = {
@@ -37,7 +57,17 @@ def checkout(skus) -> int:
         'AAAAA': {'price':200, 'saving':50},
         'BB': {'price':45, 'saving':15},
         'EEB': {'price':80, 'saving':30},
-        'FFF': {'price': 20, 'saving': 10}
+        'FFF': {'price': 20, 'saving': 10},
+        'HHHHH': {'price': 45, 'saving': 5},
+        'HHHHHHHHHH': {'price': 80, 'saving': 20},
+        'KK': {'price': 150, 'saving': 10},
+        'NNNM': {'price': 120, 'saving': 15},
+        'PPPPP': {'price': 200, 'saving': 50},
+        'QQQ': {'price': 80, 'saving': 10},
+        'RRRQ': {'price': 150, 'saving': 30},
+        'UUUU': {'price': 120, 'saving': 40},
+        'VV': {'price': 90, 'saving': 10},
+        'VVV': {'price': 130, 'saving': 20},
     }
     total_price = 0
     item_counts = {}
