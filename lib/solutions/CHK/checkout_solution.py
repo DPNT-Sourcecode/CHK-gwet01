@@ -48,7 +48,7 @@ def checkout(skus) -> int:
         'FFF': {'price': 20, 'saving': 10},
         'HHHHH': {'price': 45, 'saving': 5},
         'HHHHHHHHHH': {'price': 80, 'saving': 20},
-        'KK': {'price': 150, 'saving': 10},
+        'KK': {'price': 120, 'saving': 20},
         'NNNM': {'price': 120, 'saving': 15},
         'PPPPP': {'price': 200, 'saving': 50},
         'QQQ': {'price': 80, 'saving': 10},
