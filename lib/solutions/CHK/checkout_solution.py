@@ -64,11 +64,10 @@ def checkout(skus) -> int:
     return total_price
 
 def remove_offer_from_item_counts(item_counts: dict, offer: str) -> dict:
-    if item_counts == {}:
-        return item_counts
     for item in offer:
-        if item_counts[item] == 0:
-            raise ValueError('item for offer not in cart')
-        else:
-            item_counts[item] -= 1
+        if item in item_counts:
+            if item_counts[item] == 0:
+                raise ValueError('item for offer not in cart')
+            else:
+                item_counts[item] -= 1
     return item_counts
