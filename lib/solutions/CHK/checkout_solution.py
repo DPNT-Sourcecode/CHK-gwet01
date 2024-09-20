@@ -120,3 +120,4 @@ def generate_combinatorial_offers_dict(sample_size, items, price, prices):
         combinatorial_offers_dict.update(
             {offer_key: {'price': price, 'saving': saving}}
         )
+    return combinatorial_offers_dict
