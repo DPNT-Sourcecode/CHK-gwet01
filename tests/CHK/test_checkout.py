@@ -7,9 +7,9 @@ def test_empty_basket():
 
 def test_single_item():
     assert checkout("A") == 50
-    # assert checkout("B") == 30
-    # assert checkout("C") == 20
-    # assert checkout("D") == 15
+    assert checkout("B") == 30
+    assert checkout("C") == 20
+    assert checkout("D") == 15
 
 def test_special_offer_A():
     assert checkout("AAA") == 130
@@ -27,4 +27,8 @@ def test_multiple_items():
     assert checkout("AABBCCDD") == 215
 
 def test_offer_triggers_more_than_once():
-    assert checkout("AAAAAA") == 260
+    assert checkout("AAAAAAAAAA") == 400
+
+def test_picks_best_offer():
+    assert checkout("AAAAAA") == 250
+    assert checkout("EEBB") == 110
