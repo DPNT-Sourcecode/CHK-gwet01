@@ -65,7 +65,7 @@ def checkout(skus) -> int:
         prices=prices
     )
 
-    offers = offers.append(combinatorial_offers_dict)
+    offers.update(combinatorial_offers_dict)
     total_price = 0
     item_counts = {}
 
@@ -117,6 +117,6 @@ def generate_combinatorial_offers_dict(sample_size, items, price, prices):
             combination_cost += prices[item]
         saving = combination_cost - price
         offer_key = "".join(combination)
-        combinatorial_offers_dict.append(
-            {offer_key, {'price': price, 'saving': saving}}
+        combinatorial_offers_dict.update(
+            {offer_key: {'price': price, 'saving': saving}}
         )
