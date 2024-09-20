@@ -29,6 +29,7 @@ def checkout(skus) -> int:
         'C': 20,
         'D': 15,
         'E': 40,
+        'F': 10,
     }
     # store offers as a separate dict, could in future calculate saving if subject to change
     offers = {
@@ -36,6 +37,7 @@ def checkout(skus) -> int:
         'AAAAA': {'price':200, 'saving':50},
         'BB': {'price':45, 'saving':15},
         'EEB': {'price':80, 'saving':30},
+        'FFF': {'price': 20, 'saving': 10}
     }
     total_price = 0
     item_counts = {}
@@ -79,4 +81,5 @@ def remove_offer_from_item_counts(count: dict, offer: str) -> dict:
             else:
                 count[item] -= 1
     return count
+
 
