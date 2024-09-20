@@ -53,13 +53,15 @@ def checkout(skus) -> int:
     offers = dict(sorted(offers.items(), key=lambda item: item[1]['saving'], reverse=True))
     for offer_items, offer_info in offers.items():
         try:
+            #deepcopy is used here to not affect the global variable item counts
             item_counts = remove_offer_from_item_counts(copy.deepcopy(item_counts), offer_items)
             total_price += offer_info['price']
         except ValueError as e:
             continue
     
     for item, price in prices.items():
-        total_price += item_counts[item] * price
+        if item in item_counts:
+            total_price += item_counts[item] * price
 
     return total_price
 
